@@ -8,7 +8,6 @@ class Trips with _$Trips {
   const factory Trips({
     List<Trip>? trips,
   }) = _Trips;
-
   factory Trips.fromJson(Map<String, dynamic> json) => _$TripsFromJson(json);
 }
 

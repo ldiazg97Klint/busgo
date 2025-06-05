@@ -24,7 +24,6 @@ class NetworkService {
         return false;
       }
     }
-
     // Si no estamos conectados a Wi-Fi o datos móviles, devolvemos false
     return false;
   }

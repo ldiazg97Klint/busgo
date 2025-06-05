@@ -21,6 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
   bool isCurrentPasswordVisible = false;
   bool isNewPasswordVisible = false;
 
+
   late TextEditingController nameController;
   late TextEditingController ageController;
   late TextEditingController genderController;

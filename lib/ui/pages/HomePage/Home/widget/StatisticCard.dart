@@ -16,6 +16,7 @@ class StatisticCard extends StatelessWidget {
     required this.value,
   });
 
+
   @override
   Widget build(BuildContext context) {
     String formatoChilenoSinSimbolo(int valor) {

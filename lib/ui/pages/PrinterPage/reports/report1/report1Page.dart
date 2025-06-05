@@ -20,7 +20,7 @@ class _Report1PageState extends State<Report1Page> {
     // Si dateTime es null, se toma la fecha actual
     dateTime ??= DateTime.now();
 
-    // Formatear la fecha a "yyyy-MM-dd"
+
     return "${dateTime.year.toString().padLeft(4, '0')}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
   }
 

@@ -18,6 +18,7 @@ Map<String, dynamic> _$$TicketsImplToJson(_$TicketsImpl instance) =>
       'tickets': instance.tickets,
     };
 
+
 _$TicketImpl _$$TicketImplFromJson(Map<String, dynamic> json) => _$TicketImpl(
       id: (json['id'] as num?)?.toInt(),
       branchId: (json['branchId'] as num?)?.toInt(),

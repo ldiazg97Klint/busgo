@@ -97,5 +97,4 @@ class DatabaseHelper {
     return await db.delete('tickets', where: 'id = ?', whereArgs: [id]);
   }
 
-
 }

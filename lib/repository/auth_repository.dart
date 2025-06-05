@@ -10,8 +10,6 @@ class AuthRepository {
 
   AuthRepository({required this.authService});
 
-
-
 Future loginNew(String email, String password) async {
   final url = Uri.parse('${Env.apiEndpoint}/login-apk');
 

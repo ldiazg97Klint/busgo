@@ -18,6 +18,7 @@ Trips _$TripsFromJson(Map<String, dynamic> json) {
   return _Trips.fromJson(json);
 }
 
+
 /// @nodoc
 mixin _$Trips {
   List<Trip>? get trips => throw _privateConstructorUsedError;

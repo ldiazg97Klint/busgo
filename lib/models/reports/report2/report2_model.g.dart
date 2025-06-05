@@ -21,6 +21,7 @@ _$Report2Impl _$$Report2ImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
+
 Map<String, dynamic> _$$Report2ImplToJson(_$Report2Impl instance) =>
     <String, dynamic>{
       'nombre': instance.nombre,

@@ -236,6 +236,6 @@ Future<Map<String, dynamic>> handlePayment(
       "error": "La respuesta del pago entro en el catch-handlePayment:$e"
     };
   } finally {
-    //Navigator.pop(context);
+    // Navigator.pop(context);
   }
 }

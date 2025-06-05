@@ -34,6 +34,7 @@ List<Seat> generateSeatsFromTrip(Trip trip) {
     );
   }
 
+
   final seats = <Seat>[];
   // 6 filas de 4 asientos con pasillo en medio
   for (var i = 1; i <= 24; i += 4) {

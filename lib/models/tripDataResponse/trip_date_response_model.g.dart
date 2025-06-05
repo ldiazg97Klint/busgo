@@ -23,6 +23,7 @@ _$TripDateResponseImpl _$$TripDateResponseImplFromJson(
           const [],
     );
 
+
 Map<String, dynamic> _$$TripDateResponseImplToJson(
         _$TripDateResponseImpl instance) =>
     <String, dynamic>{

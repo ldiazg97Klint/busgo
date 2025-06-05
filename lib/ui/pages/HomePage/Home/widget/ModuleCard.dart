@@ -17,6 +17,7 @@ class ModuleCard extends StatelessWidget {
     required this.route,
   });
 
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

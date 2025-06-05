@@ -18,7 +18,7 @@ class _LoadingDialogState extends State<LoadingDialog> {
     _executeTask();
   }
 
-  // Ejecutar la tarea proporcionada
+
   Future<void> _executeTask() async {
     // Mostrar el modal y esperar la tarea
     await widget.taskToExecute();

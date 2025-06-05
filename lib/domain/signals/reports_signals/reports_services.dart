@@ -26,8 +26,6 @@ Future<void> getReports1( id, type,date,endDate)  async {
     isLoadingRP.value = false; // Finalizamos el estado de carga
   }
 }
-
-
 Future<void> getReports2( id, type,date,endDate)  async {
   isLoadingRP.value = true; // Indicamos que está cargando
   isErrorRP.value = ""; // Limpiamos posibles errores previos

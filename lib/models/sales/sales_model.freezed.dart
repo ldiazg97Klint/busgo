@@ -18,6 +18,7 @@ Sales _$SalesFromJson(Map<String, dynamic> json) {
   return _Sales.fromJson(json);
 }
 
+
 /// @nodoc
 mixin _$Sales {
   List<Sale>? get sales => throw _privateConstructorUsedError;

@@ -22,6 +22,7 @@ class TicketPage extends StatefulWidget {
   State<TicketPage> createState() => _TicketPageState();
 }
 
+
 // final utilsTicket = UtilsTicket();
 final NetworkService _networkService = NetworkService();
 final DatabaseHelper dbHelper =

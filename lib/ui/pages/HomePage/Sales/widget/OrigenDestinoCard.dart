@@ -18,6 +18,7 @@ class OrigenDestinoCard extends StatefulWidget {
   State<OrigenDestinoCard> createState() => _OrigenDestinoCardState();
 }
 
+
 class _OrigenDestinoCardState extends State<OrigenDestinoCard> {
   late String _selectedDestino;
 

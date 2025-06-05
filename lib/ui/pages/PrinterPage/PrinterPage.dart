@@ -16,6 +16,7 @@ class PrintTicketPage extends StatefulWidget {
 class _PrintTicketPageState extends State<PrintTicketPage> {
 final utilsPrinterTicket = UtilsPrinterTicket();
 
+
 // currentUserLG.value = result; // Guardamos el usuario
   String type = 'Sucursal';
 

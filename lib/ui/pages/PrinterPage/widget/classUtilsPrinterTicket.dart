@@ -18,10 +18,6 @@ class UtilsPrinterTicket {
 // Método para descargar la imagen desde URL y luego imprimirla
   Future<void> printImageFromUrl(String imageUrl) async {
     try {
-      // Descarga la imagen desde la URL
-      //final response = await http.get(Uri.parse('https://www.isdi.education/es/wp-content/uploads/2024/03/4312-modelos20de20negocio.jpg'));
-      // final token = await getToken();
-      //final String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJlbWFpbCI6Imp1YW4ucGVyZXpAZXhhbXBsZS5jb20iLCJuYW1lIjoianVhbi5wZXJleiIsIndvcmtlciI6eyJpZCI6MiwibmFtZSI6Ikp1YW4gUMOpcmV6IiwiZW1haWwiOiJqdWFuLnBlcmV6QGV4YW1wbGUuY29tIiwiaW1hZ2UiOiJ3b3JrZXJzLzIuanBnIiwicm9sZV9pZCI6MSwicm9sZSI6eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IifSwiYnJhbmNoV29ya2VycyI6W3siaWQiOjEsImJyYW5jaF9pZCI6MSwid29ya2VyX2lkIjoyLCJyb2xlX2lkIjo1LCJjcmVhdGVkQXQiOiIyMDI1LTAxLTEwVDEzOjI1OjU3LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDI1LTAxLTE0VDEyOjE3OjAzLjAwMFoiLCJicmFuY2giOnsiaWQiOjEsImNvbXBhbnlfaWQiOjEsIm5hbWUiOiJTdWN1cnNhbCBkZSBQcnVlYmEiLCJpbWFnZSI6ImJyYW5jaGVzLzEuanBnIiwicnV0IjoiMzIuNTQ4Ljk2NS1rIiwiYWRkcmVzcyI6IkRpcmVjY2nDs24gZGUgU3VjdXJzYWwgZGUgUHJ1ZWJhIiwicGhvbmUiOiIrNTY5ODc0NTEyMzAiLCJjcmVhdGVkQXQiOiIyMDI1LTAxLTEwVDE0OjU4OjE4LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDI1LTAxLTEwVDE1OjExOjM1LjAwMFoiLCJjb21wYW55Ijp7ImlkIjoxLCJ1c2VyX2lkIjozLCJuYW1lIjoiTmVnb2NpbyBkZSBQcnVlYmEiLCJpbWFnZSI6ImNvbXBhbmllcy8xLnBuZyIsInJ1dCI6IjEyLjQ1Ni44NzYtOSIsImFkZH"; // Reemplaza con tu token real
 
       final response = await http.get(
         Uri.parse(imageUrl),

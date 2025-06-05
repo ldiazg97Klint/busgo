@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:signals/signals.dart';
 
+
 class AppBarSalesWidget extends StatelessWidget {
   const AppBarSalesWidget({
     super.key,

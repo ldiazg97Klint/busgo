@@ -15,7 +15,6 @@ class SalesRepository {
     'type': type,
     'month': month,
   };
-
   try {
     // Llama al servicio y obtiene la respuesta procesada
     final response = await authService.post(endpoint, body: body);

@@ -15,10 +15,7 @@ class StyleGlobalApk {
     return globalTitleApk;
   }
 
-  //
-  //
-  //
-  //
+
   //colores
   static Color colorPrimary =  Colors.blue;
   static Color colorIndicator = const Color.fromRGBO(255, 73, 73, 1.0);

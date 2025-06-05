@@ -42,7 +42,6 @@ BottomAppBar BottomAppBarWidget(int currentIndex, void Function(int) onItemTappe
     );
   }
 
-
 //COMPONENTE DEL NAVIGATION_BAR
 class NavItem extends StatelessWidget {
   final IconData icon; // El ícono que se va a mostrar

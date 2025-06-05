@@ -56,15 +56,4 @@ logout(setState) async {
   _userData = null;
   setState(() {});
 }
-//todo FACEBOOK
 
-/*goToHomeFb(Map<String, dynamic> userData, context) {
-  final userCubit = context.read<RoutesCubit>();
-  print('llegando a la pagina de _goToHomeFb');
-  print('llegando a la pagina de _goToHomeFb-name:${userData['name']}');
-  userCubit.goHomeFb(
-    name: userData['name'],
-    email: userData['email'],
-    avatarUrl: userData['picture']['data']['url'],
-  );
-}*/

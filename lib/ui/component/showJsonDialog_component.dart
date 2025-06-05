@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 void showJsonDialog(BuildContext context, Map<String, dynamic> jsonResponse) {
   // Convertimos el JSON en una cadena formateada
   String jsonString = jsonEncode(jsonResponse);
-
   showDialog(
     context: context,
     builder: (BuildContext context) {

@@ -18,10 +18,8 @@ final Signal<bool> isLoadingSignalPR = Signal<bool>(false);
 final Signal<String?> productErrorSignal = Signal<String?>(null);
 final Signal<String?> productEmpySignal = Signal<String?>(null);
 final Signal<String> submitErrorSignal = Signal<String>("");
-
 final Signal<bool> isProductSubmittingSignal = Signal<bool>(false);
 final Signal<bool> productSubmittedSuccessSignal = Signal<bool>(false);
-
 final Signal<bool> isUpdateProductSignal = Signal<bool>(false);
 
 // Señales relacionadas con Trips

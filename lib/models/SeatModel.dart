@@ -3,6 +3,7 @@ class Seat {
   bool isOccupied;
   bool isSelected;
 
+
   Seat({
     required this.number,
     this.isOccupied = false,

@@ -18,6 +18,7 @@ TripDateResponse _$TripDateResponseFromJson(Map<String, dynamic> json) {
   return _TripDateResponse.fromJson(json);
 }
 
+
 /// @nodoc
 mixin _$TripDateResponse {
   List<Promotion> get promotions => throw _privateConstructorUsedError;

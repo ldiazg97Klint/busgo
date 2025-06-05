@@ -20,7 +20,6 @@ SharedPreferencesStorage sharedPreferencesStorage = SharedPreferencesStorage(); 
 
       for (var ticket in tick) {
         int branchId = currentUserBranchLG.value!.id;
-
         try {
           // Enviar el ticket a la API y recibir una respuesta
           final response = await storeTripLocal(

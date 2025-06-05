@@ -9,6 +9,7 @@ class ReportsRepository {
 
   ReportsRepository({required this.authService});
 
+
  Future<dynamic> getReports1Repository( id, type,date,endDate) async {
   final endpoint = '${Env.apiEndpoint}/ticket-sold-date';
   final body = {

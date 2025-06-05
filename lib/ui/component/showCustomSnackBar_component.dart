@@ -35,5 +35,6 @@ void showCustomSnackBar({
     behavior: SnackBarBehavior.floating, // Para que flote en la pantalla
   );
 
+
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

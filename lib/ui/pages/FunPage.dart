@@ -1,9 +1,6 @@
 
 import 'package:flutter/material.dart';
 
-
-
-
 class FunPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

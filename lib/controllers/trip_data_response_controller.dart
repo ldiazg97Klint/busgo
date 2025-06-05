@@ -10,9 +10,7 @@ void loadTripDateResponse(int branchId) async {
 
   final repository = TripDateResponseRepository(apiService: ApiService());
 
-
   final response = await repository.fetchTripDateResponse(branchId);
-
 
   if (response != null) {
     tripDateResponseSignal.value = response;

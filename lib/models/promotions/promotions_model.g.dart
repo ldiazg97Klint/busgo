@@ -15,6 +15,7 @@ _$PromotionImpl _$$PromotionImplFromJson(Map<String, dynamic> json) =>
       active: json['active'] as bool? ?? true,
     );
 
+
 Map<String, dynamic> _$$PromotionImplToJson(_$PromotionImpl instance) =>
     <String, dynamic>{
       'id': instance.id,

@@ -22,6 +22,7 @@ class UtilsPrinterTicketLocal {
       SunmiPrinter.initPrinter();
     }
 
+
   Future<void> printImageFromUrl(String imageUrl) async {
     try {
       // Descarga la imagen desde la URL

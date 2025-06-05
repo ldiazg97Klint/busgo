@@ -9,7 +9,6 @@ final tripsRepository = SalesRepository(
 Future<void> getSales(branchId, type, month) async {
   isLoadingSL.value = true; // Indicamos que está cargando
   isErrorSL.value = ""; // Limpiamos posibles errores previos
-
   try {
     final result = await tripsRepository.getSalesRepository(
         branchId, type, month); // Llamada al backend

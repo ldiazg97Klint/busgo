@@ -17,6 +17,7 @@ class TripDateResponse with _$TripDateResponse {
     @Default([]) List<TicketType> tickettypes,
   }) = _TripDateResponse;
 
+
   factory TripDateResponse.fromJson(Map<String, dynamic> json) =>
       _$TripDateResponseFromJson(json);
 }

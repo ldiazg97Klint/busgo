@@ -11,6 +11,7 @@ class PromotionFetchException implements Exception {
   String toString() => 'PromotionFetchException: $message';
 }
 
+
 class PromotionSaveException implements Exception {
   final String message;
   PromotionSaveException(this.message);

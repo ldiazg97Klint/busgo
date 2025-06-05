@@ -22,6 +22,7 @@ class HaulmerPayment {
     }
   }
 
+
   Future<Map<String, dynamic>> sendPaymentIntentClick(
       amount,
       cashback,

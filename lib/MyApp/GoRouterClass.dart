@@ -23,7 +23,6 @@ final GoRouter appRouter = GoRouter(
       // redirect: (context, state) => '/DashboardPage',
       redirect: (context, state) => '/LoginFormPage',
     ),
-
     GoRoute(
       path: '/PrinterPage',
       builder: (context, state) => PrintTicketPage(),

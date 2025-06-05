@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
 
   Color colorModuleTicket = Colors.lightGreen;
 
+
   @override
   Widget build(BuildContext context) {
     // Ejecuta el código después de que la página se haya renderizado

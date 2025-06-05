@@ -22,7 +22,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/image-trip-default.png
   AssetGenImage get imageTripDefault =>
       const AssetGenImage('assets/images/image-trip-default.png');
-
   /// List of all assets
   List<AssetGenImage> get values => [imageTripDefault];
 }

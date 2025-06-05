@@ -33,6 +33,7 @@ class PaymentCard extends StatefulWidget {
   State<PaymentCard> createState() => _PaymentCardState();
 }
 
+
 class _PaymentCardState extends State<PaymentCard> {
   // Guardaremos cantidad y promo elegida **por el nombre de ticketType**
   final Map<String, int> _quantities = {};

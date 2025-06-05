@@ -13,6 +13,7 @@ class TripDetailsCard extends StatelessWidget {
   final String? plate;
   final List<int>? reservedSeats;
 
+
   const TripDetailsCard({
     Key? key,
     this.arrival,

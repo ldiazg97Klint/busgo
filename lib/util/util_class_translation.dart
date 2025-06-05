@@ -24,6 +24,7 @@ class TranslationManager {
     await prefs.setString('selected_language_code', locale);
   }
 
+
   // Cargar traducciones específicas para un locale dado
   static Future<void> loadTranslations(Locale locale) async {
     try {

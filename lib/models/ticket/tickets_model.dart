@@ -12,6 +12,7 @@ class Tickets with _$Tickets {
   factory Tickets.fromJson(Map<String, dynamic> json) => _$TicketsFromJson(json);
 }
 
+
 @freezed
 class Ticket with _$Ticket {
   const factory Ticket({

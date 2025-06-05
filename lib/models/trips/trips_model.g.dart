@@ -17,6 +17,7 @@ Map<String, dynamic> _$$TripsImplToJson(_$TripsImpl instance) =>
       'trips': instance.trips,
     };
 
+
 _$TripImpl _$$TripImplFromJson(Map<String, dynamic> json) => _$TripImpl(
       id: (json['id'] as num?)?.toInt(),
       tripId: (json['tripId'] as num?)?.toInt(),

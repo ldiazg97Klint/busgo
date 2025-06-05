@@ -10,7 +10,6 @@ class Sales with _$Sales {
         List<int>? salesYear,
         List<Trip>? trips,
     }) = _Sales;
-
     factory Sales.fromJson(Map<String, dynamic> json) => _$SalesFromJson(json);
 }
 

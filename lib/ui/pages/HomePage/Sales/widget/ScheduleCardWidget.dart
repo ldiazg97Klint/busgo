@@ -23,6 +23,7 @@ class ScheduleCard extends StatefulWidget {
   final int seatsAvailable;
   final List<int> reservedSeats;
 
+
   const ScheduleCard({
     super.key,
     required this.timeIni,

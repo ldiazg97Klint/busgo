@@ -18,6 +18,7 @@ Promotion _$PromotionFromJson(Map<String, dynamic> json) {
   return _Promotion.fromJson(json);
 }
 
+
 /// @nodoc
 mixin _$Promotion {
   int get id => throw _privateConstructorUsedError;

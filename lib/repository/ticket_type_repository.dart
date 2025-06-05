@@ -22,7 +22,6 @@ class TicketTypeSaveException implements Exception {
 
 class TicketTypesRepository {
   final ApiService _api;
-
   TicketTypesRepository(this._api);
 
   Future<List<TicketType>> getAll() async {

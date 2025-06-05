@@ -6,18 +6,6 @@ import 'package:BusGo/ui/component/showCustomSnackBar_component.dart';
 
 import '../../controllers/trip_data_response_controller.dart';
 
-/// --------------------------------------------------------
-/// QuantitySelector: widget genérico para cualquier tipo de pasaje.
-/// --------------------------------------------------------
-/// Parámetros obligatorios (con estos nombres exactos):
-///   - ticketTypeName: String
-///   - initialQuantity: int
-///   - availableSeats: int
-///   - availablePromotions: List<Promotion>
-///   - onQuantityChanged: ValueChanged<int>
-/// (y opcional)
-///   - onPromotionApplied: ValueChanged<Promotion?>?
-/// --------------------------------------------------------
 
 class QuantitySelector extends StatefulWidget {
   final String ticketTypeName;

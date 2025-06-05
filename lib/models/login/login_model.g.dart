@@ -19,6 +19,7 @@ _$LoginImpl _$$LoginImplFromJson(Map<String, dynamic> json) => _$LoginImpl(
       branch: Branch.fromJson(json['branch'] as Map<String, dynamic>),
     );
 
+
 Map<String, dynamic> _$$LoginImplToJson(_$LoginImpl instance) =>
     <String, dynamic>{
       'id': instance.id,

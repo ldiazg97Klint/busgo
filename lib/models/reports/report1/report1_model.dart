@@ -24,6 +24,5 @@ class TotalesPorMetodo with _$TotalesPorMetodo {
     int? total,
     int? cantidad,
   }) = _TotalesPorMetodo;
-
   factory TotalesPorMetodo.fromJson(Map<String, dynamic> json) => _$TotalesPorMetodoFromJson(json);
 }

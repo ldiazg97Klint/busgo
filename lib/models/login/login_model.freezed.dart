@@ -233,6 +233,7 @@ class __$$LoginImplCopyWithImpl<$Res>
   }
 }
 
+
 /// @nodoc
 @JsonSerializable()
 class _$LoginImpl implements _Login {

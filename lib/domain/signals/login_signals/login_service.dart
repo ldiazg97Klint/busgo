@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'login_signal.dart';
 
 // Este es el servicio que maneja la lógica de login
-
 final authRepository = AuthRepository(authService: ApiService());
 // Método para hacer login
 Future<void> login(String email, String password) async {

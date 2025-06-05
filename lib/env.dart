@@ -13,6 +13,7 @@ class Env {
     return value;
   }
 
+
   static String get apiEndpoint => _getKey('API_ENDPOINT');
   static String get apiKey => _getKey('API_KEY');
   static String get apiToken => _getKey('API_TOKEN');

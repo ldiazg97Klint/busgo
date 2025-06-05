@@ -2,8 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'login_model.freezed.dart';
 part 'login_model.g.dart';
 
-
-
 @freezed
 class Login with _$Login {
   const factory Login({

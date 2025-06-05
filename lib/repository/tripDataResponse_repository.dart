@@ -15,7 +15,6 @@ class TripDateResponseRepository {
       'branch_id': 1,
     };
 
-
     try {
       final response = await apiService.post(endpoint, body: body);
     print('este es el response 2222 ${response} 222');

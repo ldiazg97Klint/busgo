@@ -20,7 +20,7 @@ class SalesPage extends StatelessWidget {
              AppBarSalesWidget(
               origen: branchName,
             ),
-            // Card para detalles "From" y "To"
+
             Expanded(
               // Añadimos Expanded para que ocupe el espacio restante
               child: Container(

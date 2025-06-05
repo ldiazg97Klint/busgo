@@ -18,6 +18,7 @@ Report2 _$Report2FromJson(Map<String, dynamic> json) {
   return _Report2.fromJson(json);
 }
 
+
 /// @nodoc
 mixin _$Report2 {
   String? get nombre => throw _privateConstructorUsedError;

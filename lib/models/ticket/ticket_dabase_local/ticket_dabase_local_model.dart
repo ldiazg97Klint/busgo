@@ -19,6 +19,7 @@ class Ticket {
   final double? transactionCashback;
   final List<Map<String, dynamic>> ticketType;
 
+
   Ticket({
     this.id,
     required this.branchId,

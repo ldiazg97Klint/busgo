@@ -14,7 +14,6 @@ class Report2 with _$Report2 {
     int? totales,
     List<Tramo>? tramos,
   }) = _Report2;
-
   factory Report2.fromJson(Map<String, dynamic> json) => _$Report2FromJson(json);
 }
 

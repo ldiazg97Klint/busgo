@@ -12,6 +12,7 @@ class CustomSeatIcon extends StatelessWidget {
     required this.seatNumber,
   });
 
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(

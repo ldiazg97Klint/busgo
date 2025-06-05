@@ -22,6 +22,7 @@ class _Report2PageState extends State<Report2Page> {
     _reportDataFuture2 = _loadReportData2();
   }
 
+
   Future<void> _loadReportData2() async {
     // Aquí puedes llamar al método que obtenga los datos, como getReports2(id, type, date, endDate)
     await getReports2(-999, 'ya esta por defecto en el metodo',

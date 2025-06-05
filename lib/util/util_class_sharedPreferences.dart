@@ -16,6 +16,7 @@ class SharedPreferencesStorage {
     await prefs.setInt(_key, current + 1);
   }
 
+
   // Disminuir en 1
   Future<void> decrementCounter() async {
     final prefs = await SharedPreferences.getInstance();

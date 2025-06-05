@@ -17,7 +17,6 @@ class Promotion with _$Promotion {
       _$PromotionFromJson(json);
 }
 
-// Extensión para métodos personalizados
 extension PromotionMethods on Promotion {
   double applyDiscount(double price) {
     return price * (1 - (percentage / 100));

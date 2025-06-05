@@ -18,6 +18,7 @@ _$SalesImpl _$$SalesImplFromJson(Map<String, dynamic> json) => _$SalesImpl(
           .toList(),
     );
 
+
 Map<String, dynamic> _$$SalesImplToJson(_$SalesImpl instance) =>
     <String, dynamic>{
       'sales': instance.sales,

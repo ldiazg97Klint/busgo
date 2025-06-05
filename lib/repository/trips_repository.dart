@@ -22,7 +22,6 @@ class TripsRepository {
       throw Exception('getTripssRepository: $e');
     }
   }
-
   Future<dynamic> getTicketRepository(int branchId, String date) async {
     final endpoint = '${Env.apiEndpoint}/get-tickets-date';
     final body = {

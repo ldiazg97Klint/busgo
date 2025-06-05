@@ -18,6 +18,7 @@ _$Report1Impl _$$Report1ImplFromJson(Map<String, dynamic> json) =>
       totales: (json['totales'] as num?)?.toInt(),
     );
 
+
 Map<String, dynamic> _$$Report1ImplToJson(_$Report1Impl instance) =>
     <String, dynamic>{
       'nombre': instance.nombre,

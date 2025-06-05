@@ -17,6 +17,7 @@ class PaymentData {
     required this.paymentDetails,
   });
 
+
   // Método para mapear desde JSON
   factory PaymentData.fromJson(Map<String, dynamic> json) {
     return PaymentData(

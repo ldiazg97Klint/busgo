@@ -2,7 +2,6 @@
 import 'package:BusGo/models/reports/report1/report1_model.dart';
 import 'package:BusGo/models/reports/report2/report2_model.dart';
 import 'package:signals/signals.dart';
-
 // Definimos las señales
 final Signal<bool?> isLoggedInRP = Signal<bool?>(null);
 final Signal<bool> isLoadingRP = Signal<bool>(false); // Estado de carga
