@@ -1,0 +1,2 @@
+C:/Users/Lester/Documents/busgo/android/app/.cxx/Debug/4k1f1h5u/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/Lester/Documents/busgo/android/app/.cxx/Debug/4k1f1h5u/armeabi-v7a/CMakeFiles/rebuild_cache.dir
