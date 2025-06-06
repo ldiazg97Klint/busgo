@@ -292,7 +292,8 @@ void showSeatSelectionModal(
     List<Seat> seats,
     int maxSelectable,
     ) {
-  final selectedSeatNumbers1 = ValueNotifier<List<int>>([]);
+  // Aquí usas tu Signal/Listenable para los asientos seleccionados
+  final selectedSeatNumbersSN = ValueNotifier<List<int>>([]);
 
   showModalBottomSheet(
     context: context,
@@ -316,9 +317,9 @@ void showSeatSelectionModal(
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.70,
-            child: Watch.builder(
-              builder: (ctx) {
-                final selectedSeats = selectedSeatNumbersSN.value;
+            child: ValueListenableBuilder<List<int>>(
+              valueListenable: selectedSeatNumbersSN,
+              builder: (ctx, selectedSeats, _) {
                 return LayoutBuilder(
                   builder: (c, cons) {
                     final w = cons.maxWidth;
@@ -338,16 +339,15 @@ void showSeatSelectionModal(
                         if (seat.number == -1) return const SizedBox.shrink();
                         final isSel = selectedSeats.contains(seat.number);
                         return GestureDetector(
+                          behavior: HitTestBehavior.opaque,
                           onTap: seat.isOccupied ||
-                              (!isSel &&
-                                  selectedSeats.length >= maxSelectable)
+                              (!isSel && selectedSeats.length >= maxSelectable)
                               ? null
                               : () {
                             if (isSel) {
-                              selectedSeatNumbersSN.value =
-                                  selectedSeatNumbersSN.value
-                                      .where((n) => n != seat.number)
-                                      .toList();
+                              selectedSeatNumbersSN.value = selectedSeatNumbersSN.value
+                                  .where((n) => n != seat.number)
+                                  .toList();
                             } else {
                               selectedSeatNumbersSN.value = [
                                 ...selectedSeatNumbersSN.value,
@@ -374,7 +374,6 @@ void showSeatSelectionModal(
               CustomButton(
                 title: "Limpiar Selección",
                 onTap: () {
-                  selectedSeatNumbers1.value = [];
                   selectedSeatNumbersSN.value = [];
                   for (var seat in seats) {
                     seat.isSelected = false;
@@ -402,7 +401,7 @@ void showSeatSelectionModal(
 Widget buildSeatSelection(
     List<Seat> seats,
     int maxSelectable,
-    Signal<List<int>> selectedSeatNumbersSN,
+    ValueNotifier<List<int>> selectedSeatNumbersSN,
     ) {
   return GridView.builder(
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -417,9 +416,9 @@ Widget buildSeatSelection(
       final isSelected = selectedSeatNumbersSN.value.contains(seat.number);
 
       return GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: seat.isOccupied ||
-            (!isSelected &&
-                selectedSeatNumbersSN.value.length >= maxSelectable)
+            (!isSelected && selectedSeatNumbersSN.value.length >= maxSelectable)
             ? null
             : () {
           if (isSelected) {
@@ -443,3 +442,4 @@ Widget buildSeatSelection(
     },
   );
 }
+
