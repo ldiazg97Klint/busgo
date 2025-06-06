@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomSeatIcon extends StatelessWidget {
   final bool isOccupied;
   final bool isSelected;
-  final int seatNumber; // Número del asiento
+  final int seatNumber;
 
   const CustomSeatIcon({
     super.key,
@@ -12,38 +12,38 @@ class CustomSeatIcon extends StatelessWidget {
     required this.seatNumber,
   });
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 55,
-      height: 50,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
+      // Tamaño total del widget
+      width: 60,
+      height: 60,
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          const SizedBox(height: 5),
-          Flexible(
-            child: Icon(
-              isSelected ? Icons.event_seat : Icons.event_seat_sharp,
-              size: 60,
-              color: isOccupied
-                  ? Colors.black12
-                  : isSelected
-                      ? Colors.green
-                      : Colors.blue,
-            ),
+          // Ícono del asiento (fondo)
+          Icon(
+            isSelected ? Icons.event_seat : Icons.event_seat_sharp,
+            size: 50,
+            color: isOccupied
+                ? Colors.black12
+                : isSelected
+                ? Colors.green
+                : Colors.blue,
           ),
-          Padding(
-            //TODO: cambiar el padding
-            padding: const EdgeInsets.fromLTRB(5,0, 0, 10),
+
+          // Número, con Align para desplazarlo ligeramente hacia arriba
+          Align(
+            // Ajusta este valor de Y hasta que el número quede en el "respaldo"
+            alignment: const Alignment(0, -0.5),
             child: Text(
               seatNumber.toString(),
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 16,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
         ],
