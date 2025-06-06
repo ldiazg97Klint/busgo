@@ -2,7 +2,6 @@ import 'package:BusGo/data/services/local_database_service.dart';
 import 'package:BusGo/data/services/network_service.dart';
 import 'package:BusGo/domain/signals/login_signals/login_signal.dart';
 import 'package:BusGo/domain/signals/tickets_signals/tickets_signal.dart';
-import 'package:BusGo/domain/signals/tripDataResponse_signals/tripDataResponse_signals.dart';
 import 'package:BusGo/models/ticket/ticket_dabase_local/ticket_dabase_local_model.dart';
 import 'package:BusGo/ui/component/showCustomSnackBar_component.dart';
 import 'package:BusGo/ui/pages/HomePage/Ticket/widget/classUtilsTicket.dart';
@@ -22,13 +21,12 @@ class TicketPage extends StatefulWidget {
   State<TicketPage> createState() => _TicketPageState();
 }
 
-
 // final utilsTicket = UtilsTicket();
 final NetworkService _networkService = NetworkService();
 final DatabaseHelper dbHelper =
-    DatabaseHelper(); // Instancia de la base de datos
+DatabaseHelper(); // Instancia de la base de datos
 SharedPreferencesStorage sharedPreferencesStorage =
-    SharedPreferencesStorage(); // Instancia de la base de datos
+SharedPreferencesStorage(); // Instancia de la base de datos
 UtilsPrinterTicketLocal utilsPrinterTicketLocal = UtilsPrinterTicketLocal();
 
 // Método para verificar la conexión y actualizar el estado
@@ -188,11 +186,13 @@ class _TicketPageState extends State<TicketPage> {
       );
       return;
     }
+    print('Precio para PAgar ${tripsSelectSignal.value!.price}');
 
     final methodName = method == PaymentMethod.creditCard ? 'Crédito' : 'Débito';
     verifyPurchaseTicketClass(
       context,
       tripsSelectSignal.value!.price.toString(),
+
       paymentMethod: methodName,
     );
   }
@@ -209,42 +209,42 @@ class _TicketPageState extends State<TicketPage> {
     String valorFormateado = formatoChilenoSinSimbolo(valorInt);
     return Scaffold(
       floatingActionButton:  Watch.builder(
-        builder: (context) {
-          final hasSeats = selectedSeatNumbersSN
-              .watch(context)
-              .isNotEmpty;
+          builder: (context) {
+            final hasSeats = selectedSeatNumbersSN
+                .watch(context)
+                .isNotEmpty;
 
-          return FloatingActionButton.extended(
-            onPressed: () async {
-              if (selectedSeatNumbersSN.value.isEmpty) {
-                showCustomSnackBar(
-                  context: context,
-                  title: 'Debe seleccionar al menos un asiento',
-                  backgroundColor: Colors.red,
-                );
-                return;
-              }
+            return FloatingActionButton.extended(
+              onPressed: () async {
+                if (selectedSeatNumbersSN.value.isEmpty) {
+                  showCustomSnackBar(
+                    context: context,
+                    title: 'Debe seleccionar al menos un asiento',
+                    backgroundColor: Colors.red,
+                  );
+                  return;
+                }
 
-              bool checkConnection = await _checkConnection();
-              final paymentMethod = await _showPaymentMethodModal(context);
-              if (paymentMethod == null) return;
+                bool checkConnection = await _checkConnection();
+                final paymentMethod = await _showPaymentMethodModal(context);
+                if (paymentMethod == null) return;
 
-              if (paymentMethod == PaymentMethod.cash) {
-                await _handleCashPayment();
-              } else {
-                await _handleCardPayment(paymentMethod);
-              }
-            },
-            backgroundColor: Colors.blue,
-            label: Row(
-              children: [
-                Icon(MdiIcons.ticket, color: Colors.white),
-                const SizedBox(width: 8),
-                const Text('Comprar Ticket', style: TextStyle(fontSize: 14)),
-              ],
-            ),
-          );
-        }
+                if (paymentMethod == PaymentMethod.cash) {
+                  await _handleCashPayment();
+                } else {
+                  await _handleCardPayment(paymentMethod, );
+                }
+              },
+              backgroundColor: Colors.blue,
+              label: Row(
+                children: [
+                  Icon(MdiIcons.ticket, color: Colors.white),
+                  const SizedBox(width: 8),
+                  const Text('Comprar Ticket', style: TextStyle(fontSize: 14)),
+                ],
+              ),
+            );
+          }
       ),
       backgroundColor: Colors.blue[400],
       body: SafeArea(
@@ -321,7 +321,7 @@ class _TicketPageState extends State<TicketPage> {
                                     .toString(),
                                 timeFin: '10:30xxx',
                                 price:
-                                    tripsSelectSignal.value!.price.toString(),
+                                tripsSelectSignal.value!.price.toString(),
                               ),
                             ],
                           ),
@@ -376,7 +376,7 @@ class _TicketPageState extends State<TicketPage> {
                                   const SizedBox(width: 5),
                                   Text('Bus: ',
                                       style:
-                                          TextStyle(color: Colors.grey[600])),
+                                      TextStyle(color: Colors.grey[600])),
                                   Text(
                                     tripsSelectSignal.value!.plate.toString(),
                                     style: const TextStyle(
@@ -392,7 +392,7 @@ class _TicketPageState extends State<TicketPage> {
                                   const SizedBox(width: 5),
                                   Text('Capacidad: ',
                                       style:
-                                          TextStyle(color: Colors.grey[600])),
+                                      TextStyle(color: Colors.grey[600])),
                                   Text(
                                     tripsSelectSignal.value!.seats.toString(),
                                     style: const TextStyle(
@@ -407,7 +407,7 @@ class _TicketPageState extends State<TicketPage> {
                                   const SizedBox(width: 5),
                                   Text('Precio: ', style: TextStyle(color: Colors.grey[600])),
                                   Text(
-                                      valorFormateado ,// Asegúrate que es int
+                                    valorFormateado ,// Asegúrate que es int
 
                                     style: const TextStyle(fontWeight: FontWeight.bold),
                                   ),

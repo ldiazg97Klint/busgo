@@ -33,7 +33,6 @@ class PaymentCard extends StatefulWidget {
   State<PaymentCard> createState() => _PaymentCardState();
 }
 
-
 class _PaymentCardState extends State<PaymentCard> {
   // Guardaremos cantidad y promo elegida **por el nombre de ticketType**
   final Map<String, int> _quantities = {};
@@ -66,6 +65,13 @@ class _PaymentCardState extends State<PaymentCard> {
     }
 
     final totalInt = total.toInt();
+
+    // Usar copyWith para actualizar el objeto inmutable
+    final currentTrip = tripsSelectSignal.value;
+    if (currentTrip != null) {
+      tripsSelectSignal.value = currentTrip.copyWith(price: totalInt.toString());
+    }
+
     return formatoChilenoSinSimbolo(totalInt);
   }
 
@@ -84,7 +90,7 @@ class _PaymentCardState extends State<PaymentCard> {
     int currentTotalQty = _quantities.values.fold(0, (a, b) => a + b);
     final userBranch = currentUserBranchLG.watch(context);
     final int branchId = 1;
-        // (userBranch?value!.id);
+    // (userBranch?value!.id);
 
     print('este es el branchId del paymentCard ${branchId}');
 
@@ -116,7 +122,7 @@ class _PaymentCardState extends State<PaymentCard> {
 
                       // Si redujimos la cantidad por debajo de asientos ya elegidos, recortamos:
                       final totalChosen =
-                          _quantities.values.fold(0, (a, b) => a + b);
+                      _quantities.values.fold(0, (a, b) => a + b);
                       if (selectedSeats.length > totalChosen) {
                         selectedSeatNumbersSN.value =
                             selectedSeatNumbersSN.value.sublist(0, totalChosen);
@@ -219,7 +225,7 @@ class _PaymentCardState extends State<PaymentCard> {
       final promo = _selectedPromotions[typeName];
       // Buscamos el TicketType para extraer su ID
       final ticketTypeObj =
-          (ticketTypesSignal.value ?? []).firstWhere((t) => t.name == typeName);
+      (ticketTypesSignal.value ?? []).firstWhere((t) => t.name == typeName);
 
       payload.add({
         'ticket_type_id': ticketTypeObj.id,
@@ -237,7 +243,7 @@ class _PaymentCardState extends State<PaymentCard> {
       // 1. total
       _quantities.values.fold<double>(0, (sum, qty) {
         final typeName =
-            _quantities.keys.firstWhere((k) => _quantities[k] == qty);
+        _quantities.keys.firstWhere((k) => _quantities[k] == qty);
         final promo = _selectedPromotions[typeName];
         final discounted = promo != null
             ? basePrice * (1 - promo.percentage / 100)
@@ -282,10 +288,10 @@ class _PaymentCardState extends State<PaymentCard> {
 /// == Modal para selección de asientos ==
 
 void showSeatSelectionModal(
-  BuildContext context,
-  List<Seat> seats,
-  int maxSelectable,
-) {
+    BuildContext context,
+    List<Seat> seats,
+    int maxSelectable,
+    ) {
   final selectedSeatNumbers1 = ValueNotifier<List<int>>([]);
 
   showModalBottomSheet(
@@ -333,22 +339,22 @@ void showSeatSelectionModal(
                         final isSel = selectedSeats.contains(seat.number);
                         return GestureDetector(
                           onTap: seat.isOccupied ||
-                                  (!isSel &&
-                                      selectedSeats.length >= maxSelectable)
+                              (!isSel &&
+                                  selectedSeats.length >= maxSelectable)
                               ? null
                               : () {
-                                  if (isSel) {
-                                    selectedSeatNumbersSN.value =
-                                        selectedSeatNumbersSN.value
-                                            .where((n) => n != seat.number)
-                                            .toList();
-                                  } else {
-                                    selectedSeatNumbersSN.value = [
-                                      ...selectedSeatNumbersSN.value,
-                                      seat.number
-                                    ];
-                                  }
-                                },
+                            if (isSel) {
+                              selectedSeatNumbersSN.value =
+                                  selectedSeatNumbersSN.value
+                                      .where((n) => n != seat.number)
+                                      .toList();
+                            } else {
+                              selectedSeatNumbersSN.value = [
+                                ...selectedSeatNumbersSN.value,
+                                seat.number
+                              ];
+                            }
+                          },
                           child: CustomSeatIcon(
                             isOccupied: seat.isOccupied,
                             isSelected: isSel,
@@ -394,10 +400,10 @@ void showSeatSelectionModal(
 }
 
 Widget buildSeatSelection(
-  List<Seat> seats,
-  int maxSelectable,
-  Signal<List<int>> selectedSeatNumbersSN,
-) {
+    List<Seat> seats,
+    int maxSelectable,
+    Signal<List<int>> selectedSeatNumbersSN,
+    ) {
   return GridView.builder(
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 5,
@@ -412,22 +418,22 @@ Widget buildSeatSelection(
 
       return GestureDetector(
         onTap: seat.isOccupied ||
-                (!isSelected &&
-                    selectedSeatNumbersSN.value.length >= maxSelectable)
+            (!isSelected &&
+                selectedSeatNumbersSN.value.length >= maxSelectable)
             ? null
             : () {
-                if (isSelected) {
-                  selectedSeatNumbersSN.value = selectedSeatNumbersSN.value
-                      .where((n) => n != seat.number)
-                      .toList();
-                } else {
-                  selectedSeatNumbersSN.value = [
-                    ...selectedSeatNumbersSN.value,
-                    seat.number,
-                  ];
-                }
-                (context as Element).markNeedsBuild();
-              },
+          if (isSelected) {
+            selectedSeatNumbersSN.value = selectedSeatNumbersSN.value
+                .where((n) => n != seat.number)
+                .toList();
+          } else {
+            selectedSeatNumbersSN.value = [
+              ...selectedSeatNumbersSN.value,
+              seat.number,
+            ];
+          }
+          (context as Element).markNeedsBuild();
+        },
         child: CustomSeatIcon(
           isOccupied: seat.isOccupied,
           isSelected: isSelected,

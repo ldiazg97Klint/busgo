@@ -34,7 +34,6 @@ List<Seat> generateSeatsFromTrip(Trip trip) {
     );
   }
 
-
   final seats = <Seat>[];
   // 6 filas de 4 asientos con pasillo en medio
   for (var i = 1; i <= 24; i += 4) {
@@ -66,14 +65,14 @@ Future<void> verifyPurchaseTicketClass(
   final double priceDouble = double.parse(price);
   final int adults = quantitySignal.value;
   final int minors = quantityMenoresSignal.value;
-  final double total = (priceDouble * adults) + (priceDouble / 2 * minors);
   final trip = tripsSelectSignal.value!;
+  final total = double.tryParse(trip.price ?? '0') ?? 0.0;
   final String date = DateFormat('yyyy-MM-dd').format(trip.date!);
   final String schedule = DateFormat('HH:mm').format(DateTime.now());
-
+  print('este es el amount ${total}');
   final int methodCode = paymentMethod.toLowerCase() == 'credito' ? 1 : 2;
   final Map<String, dynamic> tuuPayload = {
-    "amount": total.round(),
+    "amount": total,
     "tip": 0,
     "cashback": 0,
     "method": methodCode,
@@ -83,7 +82,7 @@ Future<void> verifyPurchaseTicketClass(
     "extraData": {
       "taxIdnValidation": currentUserBranchCompanyLG.value?.rut ?? '',
       "exemptAmount": 0,
-      "netAmount": total.round(),
+      "netAmount": total,
       "sourceName": "BusGoApp",
       "sourceVersion": "2025.01.01-1",
       "customFields": [
@@ -100,6 +99,7 @@ Future<void> verifyPurchaseTicketClass(
     // 👇 Si es pago con tarjeta → llamar a TUU
     final paymentService = HaulmerPayment(apiKey: '', deviceId: '');
     jsonResponse = await paymentService.sendPaymentIntentJson(tuuPayload);
+
     debugPrint('📥 Respuesta de TUU: $jsonResponse');
 
     if (jsonResponse['transactionStatus'] != true) {
@@ -222,11 +222,11 @@ Future<bool> _sendTicketToServer({
 }
 
 
-  /// Muestra error TUU
+/// Muestra error TUU
 void _handleErrorResponse(
-  Map<String, dynamic> resp,
-  BuildContext ctx,
-) {
+    Map<String, dynamic> resp,
+    BuildContext ctx,
+    ) {
   final msg = resp['errorMessage'] ?? resp['error'] ?? 'Error desconocido';
   showCustomSnackBar(
     context: ctx,
@@ -237,23 +237,23 @@ void _handleErrorResponse(
 
 /// Wrapper para llamar al método nativo TUU
 Future<Map<String, dynamic>> handlePayment(
-  dynamic amount,
-  dynamic cashback,
-  dynamic dteType,
-  dynamic customFields,
-  dynamic exemptAmount,
-  dynamic externalReferenceId,
-  dynamic flagAccountPayProvider,
-  dynamic idProviderAccount,
-  dynamic netAmount,
-  dynamic sourceName,
-  dynamic sourceVersion,
-  dynamic taxIdnValidation,
-  dynamic installmentsQuantity,
-  dynamic method,
-  dynamic printVoucherOnApp,
-  dynamic tip,
-) async {
+    dynamic amount,
+    dynamic cashback,
+    dynamic dteType,
+    dynamic customFields,
+    dynamic exemptAmount,
+    dynamic externalReferenceId,
+    dynamic flagAccountPayProvider,
+    dynamic idProviderAccount,
+    dynamic netAmount,
+    dynamic sourceName,
+    dynamic sourceVersion,
+    dynamic taxIdnValidation,
+    dynamic installmentsQuantity,
+    dynamic method,
+    dynamic printVoucherOnApp,
+    dynamic tip,
+    ) async {
   final paymentService = HaulmerPayment(apiKey: '', deviceId: 'TJ44243320217');
   try {
     final res = await paymentService.sendPaymentIntentClick(
