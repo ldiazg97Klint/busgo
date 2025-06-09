@@ -69,7 +69,8 @@ class _PaymentCardState extends State<PaymentCard> {
     // Usar copyWith para actualizar el objeto inmutable
     final currentTrip = tripsSelectSignal.value;
     if (currentTrip != null) {
-      tripsSelectSignal.value = currentTrip.copyWith(price: totalInt.toString());
+      tripsSelectSignal.value =
+          currentTrip.copyWith(price: totalInt.toString());
     }
 
     return formatoChilenoSinSimbolo(totalInt);
@@ -89,11 +90,8 @@ class _PaymentCardState extends State<PaymentCard> {
     final selectedSeats = selectedSeatNumbersSN.watch(context);
     int currentTotalQty = _quantities.values.fold(0, (a, b) => a + b);
     final userBranch = currentUserBranchLG.watch(context);
-    final int branchId = 1;
-    // (userBranch?value!.id);
-
-    print('este es el branchId del paymentCard ${branchId}');
-
+    //actualizacion del valor del baranchId
+    final int branchId = currentUserBranchLG.value!.id;
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
@@ -108,35 +106,39 @@ class _PaymentCardState extends State<PaymentCard> {
             final seatsLeft =
                 availableSeats - (currentTotalQty - alreadyChosen);
 
-            return Column(
-              children: [
-                QuantitySelector(
-                  ticketTypeName: ticketType.name,
-                  initialQuantity: alreadyChosen,
-                  availableSeats: seatsLeft,
-                  availablePromotions: promotions,
-                  branchId: branchId,
-                  onQuantityChanged: (newQuantity) {
-                    setState(() {
-                      _quantities[ticketType.name] = newQuantity;
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Column(
+                children: [
+                  QuantitySelector(
+                    ticketTypeName: ticketType.name,
+                    initialQuantity: alreadyChosen,
+                    availableSeats: seatsLeft,
+                    availablePromotions: promotions,
+                    branchId: branchId,
+                    onQuantityChanged: (newQuantity) {
+                      setState(() {
+                        _quantities[ticketType.name] = newQuantity;
 
-                      // Si redujimos la cantidad por debajo de asientos ya elegidos, recortamos:
-                      final totalChosen =
-                      _quantities.values.fold(0, (a, b) => a + b);
-                      if (selectedSeats.length > totalChosen) {
-                        selectedSeatNumbersSN.value =
-                            selectedSeatNumbersSN.value.sublist(0, totalChosen);
-                      }
-                    });
-                  },
-                  onPromotionApplied: (promo) {
-                    setState(() {
-                      _selectedPromotions[ticketType.name] = promo;
-                    });
-                  },
-                ),
-                const SizedBox(height: 8),
-              ],
+                        // Si redujimos la cantidad por debajo de asientos ya elegidos, recortamos:
+                        final totalChosen =
+                        _quantities.values.fold(0, (a, b) => a + b);
+                        if (selectedSeats.length > totalChosen) {
+                          selectedSeatNumbersSN.value = selectedSeatNumbersSN
+                              .value
+                              .sublist(0, totalChosen);
+                        }
+                      });
+                    },
+                    onPromotionApplied: (promo) {
+                      setState(() {
+                        _selectedPromotions[ticketType.name] = promo;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
             );
           }).toList(),
 
@@ -292,9 +294,6 @@ void showSeatSelectionModal(
     List<Seat> seats,
     int maxSelectable,
     ) {
-  // Aquí usas tu Signal/Listenable para los asientos seleccionados
-  final selectedSeatNumbersSN = ValueNotifier<List<int>>([]);
-
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -315,11 +314,15 @@ void showSeatSelectionModal(
             'La posición de los asientos que se muestran en el plano es solamente de referencia, puede variar',
             style: TextStyle(fontSize: 12),
           ),
+          const SizedBox(height: 10),
+
+          // == Plano de asientos reactivo ==
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.70,
-            child: ValueListenableBuilder<List<int>>(
-              valueListenable: selectedSeatNumbersSN,
-              builder: (ctx, selectedSeats, _) {
+            height: MediaQuery.of(context).size.height * 0.7,
+            child: Watch.builder(
+              // Observa tu Signal<List<int>>
+              builder: (ctx) {
+                final selectedSeats = selectedSeatNumbersSN.value;
                 return LayoutBuilder(
                   builder: (c, cons) {
                     final w = cons.maxWidth;
@@ -338,19 +341,21 @@ void showSeatSelectionModal(
                         final seat = seats[i];
                         if (seat.number == -1) return const SizedBox.shrink();
                         final isSel = selectedSeats.contains(seat.number);
+
                         return GestureDetector(
-                          behavior: HitTestBehavior.opaque,
                           onTap: seat.isOccupied ||
-                              (!isSel && selectedSeats.length >= maxSelectable)
+                              (!isSel &&
+                                  selectedSeats.length >= maxSelectable)
                               ? null
                               : () {
+                            // Actualiza sólo el Signal
                             if (isSel) {
-                              selectedSeatNumbersSN.value = selectedSeatNumbersSN.value
+                              selectedSeatNumbersSN.value = selectedSeats
                                   .where((n) => n != seat.number)
                                   .toList();
                             } else {
                               selectedSeatNumbersSN.value = [
-                                ...selectedSeatNumbersSN.value,
+                                ...selectedSeats,
                                 seat.number
                               ];
                             }
@@ -368,17 +373,18 @@ void showSeatSelectionModal(
               },
             ),
           ),
+
+          const SizedBox(height: 10),
+
+          // == Botones Limpiar / Confirmar ==
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomButton(
                 title: "Limpiar Selección",
                 onTap: () {
+                  // Sólo limpia el Signal
                   selectedSeatNumbersSN.value = [];
-                  for (var seat in seats) {
-                    seat.isSelected = false;
-                  }
-                  (context as Element).markNeedsBuild();
                 },
                 color: Colors.red,
                 width: 160,
@@ -397,49 +403,3 @@ void showSeatSelectionModal(
     ),
   );
 }
-
-Widget buildSeatSelection(
-    List<Seat> seats,
-    int maxSelectable,
-    ValueNotifier<List<int>> selectedSeatNumbersSN,
-    ) {
-  return GridView.builder(
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 5,
-      mainAxisSpacing: 10,
-      crossAxisSpacing: 10,
-      childAspectRatio: 1,
-    ),
-    itemCount: seats.length,
-    itemBuilder: (context, index) {
-      final seat = seats[index];
-      final isSelected = selectedSeatNumbersSN.value.contains(seat.number);
-
-      return GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: seat.isOccupied ||
-            (!isSelected && selectedSeatNumbersSN.value.length >= maxSelectable)
-            ? null
-            : () {
-          if (isSelected) {
-            selectedSeatNumbersSN.value = selectedSeatNumbersSN.value
-                .where((n) => n != seat.number)
-                .toList();
-          } else {
-            selectedSeatNumbersSN.value = [
-              ...selectedSeatNumbersSN.value,
-              seat.number,
-            ];
-          }
-          (context as Element).markNeedsBuild();
-        },
-        child: CustomSeatIcon(
-          isOccupied: seat.isOccupied,
-          isSelected: isSelected,
-          seatNumber: seat.number,
-        ),
-      );
-    },
-  );
-}
-
