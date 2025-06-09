@@ -17,10 +17,10 @@ class SalesPage extends StatelessWidget {
         child: Column(
           children: [
             // Header con imagen y título
-             AppBarSalesWidget(
+            AppBarSalesWidget(
               origen: branchName,
             ),
-
+            // Card para detalles "From" y "To"
             Expanded(
               // Añadimos Expanded para que ocupe el espacio restante
               child: Container(
@@ -48,17 +48,17 @@ class SalesPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           tripsSignal.watch(context) == null ||
-                                  tripsSignal.watch(context)!.isEmpty
+                              tripsSignal.watch(context)!.isEmpty
                               ? const Center(
-                                  child: Text(
-                                    "No hay recorridos disponibles",
-                                    style: TextStyle(
-                                      fontSize: 16,
+                            child: Text(
+                              "No hay recorridos disponibles",
+                              style: TextStyle(
+                                fontSize: 16,
 
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                )
+                                color: Colors.grey,
+                              ),
+                            ),
+                          )
                               : Watch((_) {
                             final trips = tripsSignal.value ?? [];
                             final selectedDestination = selectedDestinationSignal.value;
@@ -82,45 +82,45 @@ class SalesPage extends StatelessWidget {
 
 
                             return
-                            ListView.builder(
-                              shrinkWrap: true,
+                              ListView.builder(
+                                shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
-                              itemCount: filteredTrips.length,
-                              itemBuilder: (context, index) {
+                                itemCount: filteredTrips.length,
+                                itemBuilder: (context, index) {
 
-                                final trip = filteredTrips[index];
-                                final availableSeats = trip.seats! - (trip.reservedSeats?.length ?? 0);
-                                availableSeatsSignal.value = trip.seats! -
-                                    (trip.reservedSeats!.length);
-                                return ScheduleCard(
-                                  key: ValueKey(trip.id),
-                                  name: trip.name ?? '',
-                                  origin: trip.origin ?? "Desconocido",
-                                  destination:
-                                  trip.destination ?? "Desconocido",
-                                  plate: trip.plate ?? '',
-                                  originImage: trip.originImage ?? '',
-                                  destinationImage:
-                                  trip.destinationImage ?? '',
-                                  timeIni: trip.schedule.toString(),
-                                  timeFin: trip.arrival.toString(),
-                                  price: trip.price == null
-                                      ? trip.price.toString()
-                                      : "0.0",
-                                  place: trip.name ?? "Desconocido",
-                                  amount: trip.seats ?? 0,
-                                  seats: trip.seats ?? 0,
-                                  seatsAvailable: availableSeats,
-                                      // .value,
-                                  //-ojo-verificar si fuera null que no de error
-                                  idTrip: trip.id ?? 0,
-                                  reservedSeats: trip.reservedSeats ?? [],
-                                );
-                              },
-                            );
+                                  final trip = filteredTrips[index];
+                                  final availableSeats = trip.seats! - (trip.reservedSeats?.length ?? 0);
+                                  availableSeatsSignal.value = trip.seats! -
+                                      (trip.reservedSeats!.length);
+                                  return ScheduleCard(
+                                    key: ValueKey(trip.id),
+                                    name: trip.name ?? '',
+                                    origin: trip.origin ?? "Desconocido",
+                                    destination:
+                                    trip.destination ?? "Desconocido",
+                                    plate: trip.plate ?? '',
+                                    originImage: trip.originImage ?? '',
+                                    destinationImage:
+                                    trip.destinationImage ?? '',
+                                    timeIni: trip.schedule.toString(),
+                                    timeFin: trip.arrival.toString(),
+                                    price: trip.price == null
+                                        ? trip.price.toString()
+                                        : "0.0",
+                                    place: trip.name ?? "Desconocido",
+                                    amount: trip.seats ?? 0,
+                                    seats: trip.seats ?? 0,
+                                    seatsAvailable: availableSeats,
+                                    // .value,
+                                    //-ojo-verificar si fuera null que no de error
+                                    idTrip: trip.id ?? 0,
+                                    reservedSeats: trip.reservedSeats ?? [],
+                                  );
+                                },
+                              );
 
                           }
-                              ),
+                          ),
                         ],
                       ),
                     ),

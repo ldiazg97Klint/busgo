@@ -6,6 +6,18 @@ import 'package:BusGo/ui/component/showCustomSnackBar_component.dart';
 
 import '../../controllers/trip_data_response_controller.dart';
 
+/// --------------------------------------------------------
+/// QuantitySelector: widget genérico para cualquier tipo de pasaje.
+/// --------------------------------------------------------
+/// Parámetros obligatorios (con estos nombres exactos):
+///   - ticketTypeName: String
+///   - initialQuantity: int
+///   - availableSeats: int
+///   - availablePromotions: List<Promotion>
+///   - onQuantityChanged: ValueChanged<int>
+/// (y opcional)
+///   - onPromotionApplied: ValueChanged<Promotion?>?
+/// --------------------------------------------------------
 
 class QuantitySelector extends StatefulWidget {
   final String ticketTypeName;
@@ -144,54 +156,133 @@ class _QuantitySelectorState extends State<QuantitySelector> {
 
   @override
   Widget build(BuildContext context) {
+    final bool canDecrease = quantity > 0;
+    final bool canIncrease = quantity < widget.availableSeats;
+
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
           child: Text(
             '${widget.ticketTypeName}: ',
-            style: const TextStyle(fontSize: 12),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
-            softWrap: false,
           ),
         ),
+
+        // Botón - personalizado con estilo circular y gris si deshabilitado
+        SizedBox(
+          width: 28,
+          height: 28,
+          child: Material(
+            color: canDecrease ? Colors.red.withAlpha((0.2 * 255).round()) : Colors.grey.shade300,
+            shape: const CircleBorder(),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(100),
+              onTap: canDecrease
+                  ? () {
+                setState(() => quantity--);
+                widget.onQuantityChanged(quantity);
+                if (quantity == 0 && widget.onPromotionApplied != null) {
+                  setState(() => selectedPromo = null);
+                  widget.onPromotionApplied!(null);
+                }
+              }
+                  : null,
+              child: Center(
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 1,
+                      top: 1,
+                      child: Icon(
+                        Icons.remove_circle,
+                        size: 18,
+                        color: canDecrease
+                            ? Colors.red.withAlpha((0.5 * 255).round())
+                            : Colors.grey.shade600,
+                      ),
+                    ),
+                    Icon(
+                      Icons.remove_circle,
+                      size: 18,
+                      color: canDecrease ? Colors.red : Colors.grey,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        const SizedBox(width: 10),
+
+        Text(
+          '$quantity',
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+
+        // const SizedBox(width: 2),
+
+        // Botón + original, con icono más grueso (stack)
         IconButton(
-          icon: const Icon(Icons.remove_circle_outline, size: 18),
-          onPressed: quantity > 0
+          iconSize: 26,
+          icon: Stack(
+            children: [
+              Positioned(
+                left: 1,
+                top: 1,
+                child: Icon(
+                  Icons.add_circle,
+                  size: 24,
+                  color: canIncrease ? Colors.green.withOpacity(0.5) : Colors.grey.shade600,
+                ),
+              ),
+              Icon(
+                Icons.add_circle,
+                size: 24,
+                color: canIncrease ? Colors.green : Colors.grey,
+              ),
+            ],
+          ),
+          onPressed: canIncrease
               ? () {
-            setState(() => quantity--);
+            setState(() => quantity++);
             widget.onQuantityChanged(quantity);
-            if (quantity == 0 && widget.onPromotionApplied != null) {
-              setState(() => selectedPromo = null);
-              widget.onPromotionApplied!(null);
-            }
           }
               : null,
         ),
-        Text('$quantity', style: const TextStyle(fontSize: 14)),
-        IconButton(
-          icon: const Icon(Icons.add_circle_outline, size: 18),
-          onPressed: () {
-            if (quantity >= widget.availableSeats) {
-              showCustomSnackBar(
-                context: context,
-                title: 'No hay más asientos disponibles',
-                backgroundColor: Colors.red,
-              );
-              return;
-            }
-            setState(() => quantity++);
-            widget.onQuantityChanged(quantity);
-          },
+
+        const SizedBox(width: 12),
+
+        GestureDetector(
+          onTap: _showPromotionDialog,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: selectedPromo != null ? Colors.blue[100] : Colors.grey[200],
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.local_offer, size: 18,
+                    color: selectedPromo != null ? Colors.blue : Colors.grey),
+                const SizedBox(width: 4),
+                Text(
+                  'Promo',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: selectedPromo != null ? Colors.blue : Colors.grey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-        IconButton(
-          icon: const Icon(Icons.local_offer_outlined, color: Colors.black26),
-          tooltip: 'Aplicar promoción',
-          onPressed: _showPromotionDialog,
-        ),
-        const Text(
-            'Promo', style: TextStyle(fontSize: 10, color: Colors.black26)),
       ],
     );
   }
+
 }
