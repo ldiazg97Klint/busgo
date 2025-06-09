@@ -78,56 +78,87 @@ class _QuantitySelectorState extends State<QuantitySelector> {
       context: context,
       builder: (ctx) {
         return StatefulBuilder(
-          builder: (ctx, setState) =>
-              Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(mainAxisSize: MainAxisSize.min, children: [
-                    const Text(
-                      'Aplicar Promoción',
-                      style: TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+          builder: (ctx, setState) => Dialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            elevation: 8,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Aplicar Promoción',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
                     ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 200,
-                      child: ListView.separated(
-                        itemCount: widget.availablePromotions.length,
-                        separatorBuilder: (_, __) => const Divider(height: 1),
-                        itemBuilder: (_, i) {
-                          final promo = widget.availablePromotions[i];
-                          final isSel = promo == selectedPromo;
-                          return ListTile(
-                            title: Text(promo.name),
-                            subtitle: Text(
-                                '${promo.percentage.toStringAsFixed(0)}%'),
-                            selected: isSel,
-                            trailing: isSel
-                                ? const Icon(
-                                Icons.check_circle, color: Colors.blue)
-                                : null,
-                            onTap: () {
-                              setState(() {
-                                selectedPromo = isSel ? null : promo;
-                              });
-                            },
-                          );
-                        },
-                      ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  Flexible(
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: widget.availablePromotions.length,
+                      separatorBuilder: (_, __) => const Divider(),
+                      itemBuilder: (_, i) {
+                        final promo = widget.availablePromotions[i];
+                        final isSel = promo == selectedPromo;
+                        return ListTile(
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                          title: Text(
+                            promo.name,
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                          subtitle: Text(
+                            '${promo.percentage.toStringAsFixed(0)}% de descuento',
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                              fontSize: 13,
+                            ),
+                          ),
+                          trailing: isSel
+                              ? const Icon(Icons.check_circle_rounded, color: Colors.blue)
+                              : null,
+                          selected: isSel,
+                          selectedTileColor: Colors.blue.shade50,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          onTap: () {
+                            setState(() {
+                              selectedPromo = isSel ? null : promo;
+                            });
+                          },
+                        );
+                      },
                     ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red),
+                            backgroundColor: Colors.grey.shade300,
+                            foregroundColor: Colors.black87,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 0,
+                          ),
                           onPressed: () => context.pop(),
                           child: const Text('Cancelar'),
                         ),
-                        ElevatedButton(
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
                           onPressed: () {
                             Navigator.of(ctx).pop(selectedPromo);
                             if (widget.onPromotionApplied != null) {
@@ -136,23 +167,23 @@ class _QuantitySelectorState extends State<QuantitySelector> {
                           },
                           child: const Text('Aplicar'),
                         ),
-                      ],
-                    ),
-                  ]),
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
+            ),
+          ),
         );
       },
     );
 
     if (result != null) {
       setState(() => selectedPromo = result);
-      debugPrint(
-        'Promo aplicada a "${widget.ticketTypeName}": ${result.name} (${result
-            .percentage}%)',
-      );
+      debugPrint('Promo aplicada a "${widget.ticketTypeName}": ${result.name} (${result.percentage}%)');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
